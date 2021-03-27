@@ -1,0 +1,22 @@
+$ cd /home/thor/ansible
+
+$ ssh-keygen
+  Created directory '/home/thor/.ssh'.
+  Enter passphrase (empty for no passphrase): <press enter>
+  Enter same passphrase again: <press enter>
+
+$ ssh-copy-id steve@stapp02
+  Are you sure you want to continue connecting (yes/no)? yes
+  steve@stapp02's password: <enter password>
+
+$ ssh steve@stapp02
+[steve@stapp02 ~]$ exit
+
+$ ansible stapp02 -i inventory -m ping
+  stapp02 | SUCCESS => {
+      "ansible_facts": {
+          "discovered_interpreter_python": "/usr/bin/python"
+      },
+      "changed": false,
+      "ping": "pong"
+  }

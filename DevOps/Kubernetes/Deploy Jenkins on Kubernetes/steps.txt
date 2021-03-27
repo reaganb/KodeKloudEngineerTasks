@@ -1,0 +1,5 @@
+kubectl create ns jenkins
+
+kubectl apply -f jenkins-service.yml
+
+kubectly apply -f jenkins-deployment.yml

@@ -1,0 +1,30 @@
+---
+- hosts: all
+  name: Ansible Block In File Module
+  become: yes
+  tasks:
+    - name: Install httpd on all app servers
+      yum:
+        name: httpd
+        state: present
+
+    - name: Enable and start httpd on all app servers
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Add content in index.html of httpd
+      blockinfile:
+        path: /var/www/html/index.html
+        block: |
+          Welcome to XfusionCorp!
+
+          This is Nautilus sample file, created using Ansible!
+
+          Please do not modify this file manually!
+        state: present
+        create: yes
+        mode: "0755"
+        owner: apache
+        group: apache

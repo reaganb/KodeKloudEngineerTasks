@@ -1,0 +1,23 @@
+$ kubectl apply -f webserver-pod.yml
+
+$ kubectl get pod webserver
+  NAME        READY   STATUS    RESTARTS   AGE
+  webserver   2/2     Running   0          21s
+
+$ kubectl exec -it webserver -c nginx-container sh
+
+nginx-container # ls -l /var/log/nginx/
+  total 0
+  -rw-r--r-- 1 root root 0 Mar 27 04:29 access.log
+  -rw-r--r-- 1 root root 0 Mar 27 04:29 error.log
+
+nginx-container # exit
+
+$ kubectl exec -it webserver -c sidecar-container sh
+
+sidecar-container # ls -l /var/log/nginx/
+  total 0
+  -rw-r--r-- 1 root root 0 Mar 27 04:29 access.log
+  -rw-r--r-- 1 root root 0 Mar 27 04:29 error.log
+
+sidecar-container # exit

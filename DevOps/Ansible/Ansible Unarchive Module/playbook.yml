@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  name: Ansible unarchive
+  tasks:
+    - name: Unarchive on app servers
+      ansible.builtin.unarchive:
+        src: /usr/src/dba/datacenter.zip
+        dest: /opt/dba/
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0755"
+      when: inventory_hostname ==  item
+      loop:
+        - stapp01
+        - stapp02
+        - stapp03

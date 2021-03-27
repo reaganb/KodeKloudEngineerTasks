@@ -1,0 +1,29 @@
+---
+- hosts: all
+  name: Using Ansible Conditionals
+  become: yes
+  tasks:
+    - name: "Copy on App Server 1"
+      ansible.builtin.copy:
+        src: /usr/src/security/blog.txt
+        dest: /opt/security/blog.txt
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0744"
+      when: inventory_hostname ==  "stapp01"
+    - name: "Copy on App Server 2"
+      ansible.builtin.copy:
+        src: /usr/src/security/story.txt
+        dest: /opt/security/story.txt
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0744"
+      when: inventory_hostname ==  "stapp02"
+    - name: "Copy on App Server 3"
+      ansible.builtin.copy:
+        src: /usr/src/security/media.txt
+        dest: /opt/security/media.txt
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0744"
+      when: inventory_hostname ==  "stapp03"
