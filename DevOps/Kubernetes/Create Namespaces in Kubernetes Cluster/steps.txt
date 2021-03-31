@@ -1,0 +1,7 @@
+$ kubectl create ns dev
+
+$ kubectl apply -f dev-nginx-pod.yml
+
+$ kubectl get pods -n dev
+  NAME            READY   STATUS    RESTARTS   AGE
+  dev-nginx-pod   1/1     Running   0          4m
