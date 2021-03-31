@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: yes
+  name: Ansible Facts Gathering
+  tasks:
+    - name: Add content of /root/facts.txt
+      blockinfile:
+        path: /root/facts.txt
+        block: |
+          "Ansible managed node IP is {{ ansible_host }}"
+        state: present
+        create: yes
+
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: Set content of httpd index.html to facts.txt
+      copy:
+        src: /root/facts.txt
+        dest: /var/www/html/index.html
+        remote_src: yes
+
+    - name: Enable and start httpd
+      systemd:
+        name: httpd
+        enabled: yes
+        state: started
+
+    - name: Check output
+      shell: 'cat /root/facts.txt ; cat /var/www/html/index.html'
+      register: out
+
+    - debug:
+        msg: "Output {{ out }}"
