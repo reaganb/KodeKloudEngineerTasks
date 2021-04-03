@@ -1,7 +1,4 @@
 apiVersion: v1
-  Search Google or type a URL
-
-
 kind: Pod
 metadata:
   labels:
