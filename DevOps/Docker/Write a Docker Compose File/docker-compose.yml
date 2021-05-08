@@ -1,0 +1,9 @@
+version: "3"
+services:
+  web_service:
+    image: httpd:latest
+    container_name: httpd
+    ports:
+      - 8086:80
+    volumes:
+      - /opt/dba:/usr/local/apache2/htdocs:ro
