@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: jekyll-pod-devops
+  name: jekyll-pod-devops
+  namespace: jekyll-namespace-devops
+spec:
+  initContainers:
+    - image: kodekloud/jekyll
+      imagePullPolicy: IfNotPresent
+      name: jekyll-init-devops
+      command: [ "jekyll", "new", "/site" ]
+      volumeMounts:
+        - name: site
+          mountPath: /site
+
+  containers:
+    - image: kodekloud/jekyll-serve
+      name: jekyll-container-devops
+      volumeMounts:
+        - name: site
+          mountPath: /site
+  volumes:
+    - name: site
+      persistentVolumeClaim:
+        claimName: jekyll-site-devops
